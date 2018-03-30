@@ -5,47 +5,51 @@ import java.lang.reflect.Array;
 public class Order {
     private int size;
     private Dish[] dishes;
-
-
+    private static final int DEFAULT_COST=16;
     public Order() {
-        dishes = new Dish[16];
-        size = 0;
+        //todo конастанты класса,вызвать конструктор с order size
+        this(new Dish[DEFAULT_COST]);
+
+
+
     }
 
     public Order(int size) {
-        dishes = new Dish[size];
-        this.size = 0;
+        //todo передать из другого
+         this(new Dish[size]);
     }
 
     public Order(Dish[] dishes) {
-        this.dishes = dishes;
+        // todo новый массив и копировать элементы dishes
+        this.dishes=new Dish[dishes.length];
+        int i = 0, j = 0;
+        while (i < dishes.length) {
+            if (dishes[i] != null) {
+                this.dishes[j] = dishes[i];
+                j++;
+            }
+            i++;
+        }
+        size = j++;
+
     }
 
     public boolean add(Dish dish) {
-        if (size != 0) {
-            if (size == dishes.length) {
+        //todo условие при значеннии равном 0
+
+            if (size >= dishes.length) {
                 Dish[] newDishes = new Dish[dishes.length * 2];
                 System.arraycopy(dishes, 0, newDishes, 0, size);
 
-                newDishes[size] = dish;
+
                 dishes = newDishes;
-                size++;
-                return true;
-            } else {
-                for (int i = 0; i < dishes.length; i++) {
-                    if (dishes[i] == null) {
-                        dishes[i] = dish;
-                        size++;
-                        return true;
-                    }
-                }
-                return false;
             }
-        } else {
-            dishes[0] = dish;
+
+
+            dishes[size] = dish;
             size++;
             return true;
-        }
+
     }
 
     public boolean remove(String dishName) {
@@ -56,9 +60,10 @@ public class Order {
                     dishes[dishes.length - 1] = null;
                     return true;
                 }
+
             }
-            return false;
-        } else return false;
+        }
+        return false;
     }
 
 
@@ -100,14 +105,16 @@ public class Order {
     }
 
     public double costTotal() {
+        //todo обычный for до size
         double cost = 0;
-        for (Dish x : dishes) {
-            cost += x.getCost();
+        for (int i=0; i<dishes.length; i++) {
+            cost += dishes[i].getCost();
         }
         return cost;
     }
 
     public String[] dishesNames() {
+
 
             boolean check = false;
             String[] dishesNamesArray = new String[size];
@@ -124,6 +131,21 @@ public class Order {
 
                 }
             }
+            //todo добавить счетчк уникальных имен.возвращать  массив размера. как показывает счетчик
+       int count=0;
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                check = !dishes[i].getName().equals(dishesNamesArray[j]);
+
+
+                if (check) {
+                    for ( j = 0; j < size; j++)
+                        if (dishesNamesArray[j] == null)
+                            count++;
+                }
+
+            }
+        }
             return dishesNamesArray;
 
     }
@@ -131,8 +153,8 @@ public class Order {
 
 
     public Dish[] sortedDishesByCostDesc() {
-        Dish[] sortedDishes = new Dish[size];
-        System.arraycopy(dishes, 0, sortedDishes, 0, size);
+
+        Dish[] sortedDishes = getDishes();
         for (int i = sortedDishes.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (sortedDishes[j].getCost() < sortedDishes[j + 1].getCost()) {

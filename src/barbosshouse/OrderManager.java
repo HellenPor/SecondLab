@@ -1,6 +1,7 @@
 package barbosshouse;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 public class OrderManager {
     private Order[] orders;
@@ -15,9 +16,8 @@ public class OrderManager {
     }
 
     public Order getOrder(int tableNumber) {
-        if (orders[tableNumber] != null)
             return orders[tableNumber];
-        else return null;
+
     }
 
     public void addDish(Dish dish, int tableNumber) {
@@ -30,13 +30,35 @@ public class OrderManager {
     }
 
     public int freeTableNumber() {
-        for (int i = 0; i < orders.length; i++) {
-            for (i = 0; i < orders.length; i++) {
+
+            for (int i = 0; i < orders.length; i++) {
                 if (Objects.isNull(orders[i])) return i;
             }
-
-        }
         return -1;
+        }
+
+
+
+    private int checkTable(Predicate<Order> predicate) {
+        int i, count = 0;
+        for (i = 0; i < orders.length; i++) {
+            if (predicate.test(orders[i])) count++;
+        }
+        return count;
+    }
+    //todo массив занятых столиков
+    private int[] getArrayTableNumbers(Predicate<Order> predicate) {
+        int[] TableNumbers = new int[checkTable(predicate)];
+        int i = 0, j = 0;
+        while (i < orders.length) {
+            if (predicate.test(orders[i])) {
+                TableNumbers[j] = i;
+                j++;
+            }
+            i++;
+        }
+
+        return TableNumbers;
     }
 
     public int[] freeTableNumbers() {

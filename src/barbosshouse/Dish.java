@@ -4,10 +4,11 @@ public class Dish {
     private double cost;
     private String name;
     private String description;
+    private static final double DEFAULT_COST = 0;
 
     public Dish(String name, String description) {
-        this.name = name;
-        this.description = description;
+        //todo константу, конструкторс  мс меньшим числом параметров, вызывающ с большим числом параметров
+        this(name, description, DEFAULT_COST);
     }
 
     public Dish(String name, String description, double cost) {
