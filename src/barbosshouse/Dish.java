@@ -7,7 +7,7 @@ public class Dish {
     private static final double DEFAULT_COST = 0;
 
     public Dish(String name, String description) {
-        //todo константу, конструкторс  мс меньшим числом параметров, вызывающ с большим числом параметров
+        //todo константу, конструкторс  с меньшим числом параметров, вызывающ с большим числом параметров
         this(name, description, DEFAULT_COST);
     }
 

@@ -16,7 +16,7 @@ public class OrderManager {
     }
 
     public Order getOrder(int tableNumber) {
-            return orders[tableNumber];
+        return orders[tableNumber];
 
     }
 
@@ -31,12 +31,11 @@ public class OrderManager {
 
     public int freeTableNumber() {
 
-            for (int i = 0; i < orders.length; i++) {
-                if (Objects.isNull(orders[i])) return i;
-            }
-        return -1;
+        for (int i = 0; i < orders.length; i++) {
+            if (Objects.isNull(orders[i])) return i;
         }
-
+        return -1;
+    }
 
 
     private int checkTable(Predicate<Order> predicate) {
@@ -46,6 +45,7 @@ public class OrderManager {
         }
         return count;
     }
+
     //todo массив занятых столиков
     private int[] getArrayTableNumbers(Predicate<Order> predicate) {
         int[] TableNumbers = new int[checkTable(predicate)];
@@ -61,26 +61,31 @@ public class OrderManager {
         return TableNumbers;
     }
 
+    public int[] bookedTableNumbers() {
+        return getArrayTableNumbers(s -> !Objects.isNull(s));
+    }
+
     public int[] freeTableNumbers() {
-        int count = 0;
-        int i = 0, j = 0;
-
-        while (i < orders.length) {
-            if (orders[i] == null) {
-                count++;
-            }
-            i++;
-        }
-        int[] tableNumbers = new int[count];
-
-        while (i < orders.length) {
-            if (orders[i] == null) {
-                tableNumbers[j] = i;
-                j++;
-            }
-            i++;
-        }
-        return tableNumbers;
+        return getArrayTableNumbers(Objects::isNull);
+//        int count = 0;
+//        int i = 0, j = 0;
+//
+//        while (i < orders.length) {
+//            if (orders[i] == null) {
+//                count++;
+//            }
+//            i++;
+//        }
+//        int[] tableNumbers = new int[count];
+//
+//        while (i < orders.length) {
+//            if (orders[i] == null) {
+//                tableNumbers[j] = i;
+//                j++;
+//            }
+//            i++;
+//        }
+//        return tableNumbers;
     }
 
     public Order[] getOrders() {
