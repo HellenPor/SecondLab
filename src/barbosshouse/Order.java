@@ -105,7 +105,7 @@ public class Order {
     }
 
     public double costTotal() {
-        //todo обычный for до size
+        //todo обычный for
         double cost = 0;
         for (int i=0; i<dishes.length; i++) {
             cost += dishes[i].getCost();
