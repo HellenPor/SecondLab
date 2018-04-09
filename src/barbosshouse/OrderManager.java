@@ -6,22 +6,20 @@ import java.util.function.Predicate;
 public class OrderManager {
     private Order[] orders;
 
+    //todo tableNumber - это номер столика, а не их колличество. Переименуй параметр соответсвенно
     public OrderManager(int tableNumber) {
         orders = new Order[tableNumber];
     }
 
     public void add(Order order, int tableNumber) {
         orders[tableNumber] = order;
-
     }
 
     public Order getOrder(int tableNumber) {
         return orders[tableNumber];
-
     }
 
     public void addDish(Dish dish, int tableNumber) {
-
         orders[tableNumber].add(dish);
     }
 
@@ -30,7 +28,6 @@ public class OrderManager {
     }
 
     public int freeTableNumber() {
-
         for (int i = 0; i < orders.length; i++) {
             if (Objects.isNull(orders[i])) return i;
         }
@@ -67,32 +64,13 @@ public class OrderManager {
 
     public int[] freeTableNumbers() {
         return getArrayTableNumbers(Objects::isNull);
-//        int count = 0;
-//        int i = 0, j = 0;
-//
-//        while (i < orders.length) {
-//            if (orders[i] == null) {
-//                count++;
-//            }
-//            i++;
-//        }
-//        int[] tableNumbers = new int[count];
-//
-//        while (i < orders.length) {
-//            if (orders[i] == null) {
-//                tableNumbers[j] = i;
-//                j++;
-//            }
-//            i++;
-//        }
-//        return tableNumbers;
     }
 
     public Order[] getOrders() {
         int i = 0, j = 0;
         int count = 0;
 
-        while (i < orders.length) {
+        while (i < orders.length) {//todo для прохода по элементам массива логичнее использовать for с индексом или в стиле foreach
             if (orders[i] != null) {
                 count++;
             }
@@ -100,7 +78,7 @@ public class OrderManager {
         }
 
         Order[] newOrders = new Order[count];
-        while (i < orders.length) {
+        while (i < orders.length) {//todo для прохода по элементам массива логичнее использовать for с индексом или в стиле foreach
             if (orders[i] == null) {
                 newOrders[j] = orders[i];
                 j++;
@@ -125,7 +103,6 @@ public class OrderManager {
                 count += x.dishQuantity(dishName);
             }
         }
-
         return count;
     }
 }

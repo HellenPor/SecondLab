@@ -7,49 +7,36 @@ public class Order {
     private Dish[] dishes;
     private static final int DEFAULT_COST=16;
     public Order() {
-        //todo конастанты класса,вызвать конструктор с order size
-        this(new Dish[DEFAULT_COST]);
-
-
-
+        this(DEFAULT_COST);
     }
 
     public Order(int size) {
-        //todo передать из другого
-         this(new Dish[size]);
+         dishes = new Dish[size];
     }
 
     public Order(Dish[] dishes) {
-        // todo новый массив и копировать элементы dishes
         this.dishes=new Dish[dishes.length];
         int i = 0, j = 0;
-        while (i < dishes.length) {
+        while (i < dishes.length) { //todo для циклов с индексами логичнее использовать for не?
             if (dishes[i] != null) {
                 this.dishes[j] = dishes[i];
                 j++;
             }
             i++;
         }
-        size = j++;
+        size = j; //todo а что, нельзя было size вместо j сразу увеличивать?
 
     }
 
     public boolean add(Dish dish) {
-        //todo условие при значеннии равном 0
-
             if (size >= dishes.length) {
                 Dish[] newDishes = new Dish[dishes.length * 2];
                 System.arraycopy(dishes, 0, newDishes, 0, size);
-
-
                 dishes = newDishes;
             }
-
-
             dishes[size] = dish;
             size++;
             return true;
-
     }
 
     public boolean remove(String dishName) {
@@ -60,12 +47,10 @@ public class Order {
                     dishes[dishes.length - 1] = null;
                     return true;
                 }
-
             }
         }
         return false;
     }
-
 
     public int removeAll(String dishName) {
         int count = 0;
@@ -75,11 +60,8 @@ public class Order {
                     System.arraycopy(dishes, i + 1, dishes, i, dishes.length - i - 1);
                     count++;
                     dishes[dishes.length - 1] = null;
-
                 }
-
             }
-
         }
         return count;
     }
@@ -105,7 +87,7 @@ public class Order {
     }
 
     public double costTotal() {
-        //todo обычный for до size
+        //todo обычный for до size, а не до dishes.length
         double cost = 0;
         for (int i=0; i<dishes.length; i++) {
             cost += dishes[i].getCost();
@@ -114,15 +96,11 @@ public class Order {
     }
 
     public String[] dishesNames() {
-
-
             boolean check = false;
             String[] dishesNamesArray = new String[size];
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     check = !dishes[i].getName().equals(dishesNamesArray[j]);
-
-
                     if (check) {
                         for ( j = 0; j < size; j++)
                             if (dishesNamesArray[j] == null)
@@ -131,13 +109,11 @@ public class Order {
 
                 }
             }
-            //todo добавить счетчк уникальных имен.возвращать  массив размера. как показывает счетчик
+            //todo добавить счетчк уникальных имен.возвращать массив размера. как показывает счетчик
        int count=0;
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 check = !dishes[i].getName().equals(dishesNamesArray[j]);
-
-
                 if (check) {
                     for ( j = 0; j < size; j++)
                         if (dishesNamesArray[j] == null)
