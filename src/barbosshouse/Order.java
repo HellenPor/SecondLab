@@ -6,6 +6,7 @@ public class Order {
     private int size;
     private Dish[] dishes;
     private static final int DEFAULT_COST = 16;
+
     public Order() {
         this(DEFAULT_COST);
     }
@@ -15,9 +16,9 @@ public class Order {
     }
 
     public Order(Dish[] dishes) {
-        this.dishes=new Dish[dishes.length];
+        this.dishes = new Dish[dishes.length];
         size = 0;
-        for(int i = 0; i < dishes.length; i++){
+        for (int i = 0; i < dishes.length; i++) {
             if (dishes[i] != null) {
                 this.dishes[size] = dishes[i];
                 size++;
@@ -88,8 +89,8 @@ public class Order {
     public double costTotal() {
         //todo обычный for до size, а не до dishes.length
         double cost = 0;
-        for (Dish dish : dishes) {
-            cost += dish.getCost();
+        for (int i = 0; i < size; i++) {
+            cost += dishes[i].getCost();
         }
         return cost;
     }
