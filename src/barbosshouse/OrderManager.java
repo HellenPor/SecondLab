@@ -6,22 +6,20 @@ import java.util.function.Predicate;
 public class OrderManager {
     private Order[] orders;
 
-    public OrderManager(int tableNumber) {
-        orders = new Order[tableNumber];
+    //todo tableNumber - это номер столика, а не их колличество. Переименуй параметр соответсвенно
+    public OrderManager(int tableCount) {
+        orders = new Order[tableCount];
     }
 
     public void add(Order order, int tableNumber) {
         orders[tableNumber] = order;
-
     }
 
     public Order getOrder(int tableNumber) {
         return orders[tableNumber];
-
     }
 
     public void addDish(Dish dish, int tableNumber) {
-
         orders[tableNumber].add(dish);
     }
 
@@ -30,7 +28,6 @@ public class OrderManager {
     }
 
     public int freeTableNumber() {
-
         for (int i = 0; i < orders.length; i++) {
             if (Objects.isNull(orders[i])) return i;
         }
@@ -46,66 +43,62 @@ public class OrderManager {
         return count;
     }
 
-    //todo массив занятых столиков
     private int[] getArrayTableNumbers(Predicate<Order> predicate) {
-        int[] TableNumbers = new int[checkTable(predicate)];
+        int[] tableNumbers = new int[checkTable(predicate)];
         int i = 0, j = 0;
         while (i < orders.length) {
             if (predicate.test(orders[i])) {
-                TableNumbers[j] = i;
+                tableNumbers[j] = i;
                 j++;
             }
             i++;
         }
 
-        return TableNumbers;
+        return tableNumbers;
     }
 
+    //todo массив занятых столиков
     public int[] bookedTableNumbers() {
         return getArrayTableNumbers(s -> !Objects.isNull(s));
     }
 
     public int[] freeTableNumbers() {
         return getArrayTableNumbers(Objects::isNull);
-//        int count = 0;
-//        int i = 0, j = 0;
-//
-//        while (i < orders.length) {
-//            if (orders[i] == null) {
-//                count++;
-//            }
-//            i++;
-//        }
-//        int[] tableNumbers = new int[count];
-//
-//        while (i < orders.length) {
-//            if (orders[i] == null) {
-//                tableNumbers[j] = i;
-//                j++;
-//            }
-//            i++;
-//        }
-//        return tableNumbers;
     }
 
     public Order[] getOrders() {
         int i = 0, j = 0;
         int count = 0;
 
-        while (i < orders.length) {
+        /*
+        while (i < orders.length) {//todo для прохода по элементам массива логичнее использовать for с индексом или в стиле foreach
             if (orders[i] != null) {
                 count++;
             }
             i++;
         }
+        */
+
+        for (Order o : orders) {
+            if (o != null)
+                count++;
+        }
 
         Order[] newOrders = new Order[count];
-        while (i < orders.length) {
+        /*
+        while (i < orders.length) {//todo для прохода по элементам массива логичнее использовать for с индексом или в стиле foreach
             if (orders[i] == null) {
                 newOrders[j] = orders[i];
                 j++;
             }
             i++;
+        }*/
+
+        for (Order o : orders) {
+            if (o != null){
+                newOrders[j] = o;
+                j++;
+            }
         }
         return newOrders;
     }
@@ -125,7 +118,6 @@ public class OrderManager {
                 count += x.dishQuantity(dishName);
             }
         }
-
         return count;
     }
 }
