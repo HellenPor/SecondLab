@@ -1,42 +1,32 @@
 package barbosshouse;
 
-public class Dish {
-    private double cost;
-    private String name;
-    private String description;
-    private static final double DEFAULT_COST = 0;
+public class Dish extends MenuItem {
+
+    private static final double DEFAULT_COST = 0.0;
 
     public Dish(String name, String description) {
-        this(name, description, DEFAULT_COST);
+        super( name, description,DEFAULT_COST);
     }
 
-    public Dish(String name, String description, double cost) {
-        this.name = name;
-        this.description = description;
-        this.cost = cost;
+    public Dish(double cost, String name, String description) {
+        super(name,description,cost);
     }
 
-    public double getCost() {
-        return cost;
+    @Override
+    public String toString() {
+        return "Dish: " + super.toString() + " " + getDescription();
     }
 
-    public void setCost(double cost) {
-        this.cost = cost;
+    @Override
+    public boolean equals(Object obj) {
+        super.equals(obj);
+        return super.equals(obj);
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public int hashCode() {
+        return super.hashCode() ^ getDescription().hashCode();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
