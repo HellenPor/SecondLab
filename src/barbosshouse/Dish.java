@@ -19,8 +19,7 @@ public class Dish extends MenuItem {
 
     @Override
     public boolean equals(Object obj) {
-        super.equals(obj);
-        return super.equals(obj);
+        return super.equals(obj) && ; //todo добавить сравнение description. Пример ((MenuItem) obj).getDescription()
     }
 
     @Override

@@ -22,7 +22,7 @@ public class InternetOrder implements Order {
             head = node;
             tail = node;
         } else {
-            tail.setNext(node);
+            tail.next = node; //todo аналогично замени вызовы методов на обращения к полям
             tail = node;
         }
 
@@ -248,6 +248,7 @@ public class InternetOrder implements Order {
         return sb.toString();
     }
 
+    //todo equals toString hashCode не создавай массив, а гуляй по своим нодам
     @Override
     public boolean equals(Object obj) {
 
@@ -284,19 +285,12 @@ public class InternetOrder implements Order {
     }
 
     private class ListNode {
-        private ListNode next;
-        private MenuItem value;
+        ListNode next;
+        MenuItem value;
 
         ListNode(MenuItem menuItem) {
             this.value = menuItem;
         }
 
-        ListNode getNext() {
-            return next;
-        }
-
-        void setNext(ListNode next) {
-            this.next = next;
-        }
     }
 }

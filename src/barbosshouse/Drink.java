@@ -43,12 +43,16 @@ public class Drink extends MenuItem implements Alcoholable {
                 "Drink: " + type + super.toString() + " Alcohol: " + getAlcoholVol() + "%. " + super.getDescription();
     }
 
+//todo посмотреть еще раз, и понять, если сразу не поняла =)
       @Override
       public boolean equals(Object obj) {
           boolean eq = super.equals(obj);
-          Drink o = (Drink) obj;
+          if (eq) {
+              Drink o = (Drink) obj;
 
-          return eq & alcoholVol == o.alcoholVol & type == o.type;
+              return alcoholVol == o.alcoholVol & type == o.type;
+          }
+          else return false;
       }
 
     @Override
