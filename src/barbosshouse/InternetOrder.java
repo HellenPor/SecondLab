@@ -32,13 +32,13 @@ public class InternetOrder implements Order {
 
     private void remove(ListNode node, ListNode prev) {
         if (prev != null) {
-            prev.setNext(node.getNext());
+            prev.next=node.next;
 
-            if (node.getNext() == null) {
+            if (node.next == null) {
                 tail = prev;
             }
         } else {
-            head = head.getNext();
+            head = head.next;
 
             if (head == null) {
                 tail = null;
@@ -60,7 +60,7 @@ public class InternetOrder implements Order {
             }
 
             prev = node;
-            node = node.getNext();
+            node = node.next;
         }
 
 
@@ -82,7 +82,7 @@ public class InternetOrder implements Order {
             }
 
             prev = node;
-            node = node.getNext();
+            node = node.next;
         }
 
         return false;
@@ -99,7 +99,7 @@ public class InternetOrder implements Order {
                 count++;
             }
             prev = node;
-            node = node.getNext();
+            node = node.next;
         }
 
         return count;
@@ -115,7 +115,7 @@ public class InternetOrder implements Order {
                 count++;
             }
             prev = node;
-            node = node.getNext();
+            node = node.next;
         }
 
         return count;
@@ -131,7 +131,7 @@ public class InternetOrder implements Order {
 
         for (i = 0; i < size; i++) {
             if (dishName.equals(order.value.getName())) count++;
-            order = order.getNext();
+            order = order.next;
         }
 
         return count;
@@ -143,7 +143,7 @@ public class InternetOrder implements Order {
 
         for (i = 0; i < size; i++) {
             if (item.equals(order.value)) count++;
-            order = order.getNext();
+            order = order.next;
         }
 
         return count;
@@ -157,7 +157,7 @@ public class InternetOrder implements Order {
         for (i = 0; i < size; i++) {
             if (node != null)
                 items[i] = node.value;
-            node = node.getNext();
+            node = node.next;
         }
 
         return items;
@@ -170,7 +170,7 @@ public class InternetOrder implements Order {
 
         for (i = 0; i < size; i++) {
             cost += node.value.getCost();
-            node = node.getNext();
+            node = node.next;
         }
 
         return cost;
@@ -234,7 +234,7 @@ public class InternetOrder implements Order {
 
     @Override
     public String toString() {
-        MenuItem[] items = getMenuItems();
+        /*MenuItem[] items = getMenuItems();
         StringBuilder sb = new StringBuilder("InternetOrder:\n");
         if (customer != null) {
             sb.append(getCustomer().toString()).append("\n").append(items.length).append("\n");
@@ -245,14 +245,31 @@ public class InternetOrder implements Order {
         for (MenuItem item : items) {
             sb.append(item.toString()).append("\n");
         }
+        return sb.toString();*/
+
+        StringBuilder sb =new StringBuilder("InternetOrder:\n");
+        if (customer != null) {
+            sb.append(getCustomer().toString()).append("\n");
+        }
+
+        if (itemsQuantity()!=0) {sb.append(itemsQuantity()).append("\n");
+            ListNode current = head;
+            while (current!=null){
+                sb.append(current.value.toString()).append("\n");
+                current=current.next;
+            }
+        }
         return sb.toString();
     }
+
+
+
 
     //todo equals toString hashCode не создавай массив, а гуляй по своим нодам
     @Override
     public boolean equals(Object obj) {
 
-        if (this == obj) return true;
+        /*if (this == obj) return true;
 
         if (obj == null || this.getClass() == obj.getClass()) return false;
 
@@ -268,12 +285,24 @@ public class InternetOrder implements Order {
             if (itemsQuantity(s) != o.itemsQuantity(s)) return false;
         }
 
-        return true;
+        return true;*/
+        if (this == obj) return true;
+        if(obj == null || this.getClass() == obj.getClass()) return false;
+        InternetOrder o = (InternetOrder) obj;
+        if (!o.customer.equals(customer)) return false;
+        ListNode current = head;
+        while(current!=null) {
+            if (this.itemsQuantity(current.value) != o.itemsQuantity(current.value))
+                return false;
+            current=current.next;
+        }
+        return (size == o.size);
     }
+
 
     @Override
     public int hashCode() {
-        MenuItem[] items = getMenuItems();
+       /* MenuItem[] items = getMenuItems();
         int hash = 0;
 
         for (MenuItem x : items) {
@@ -281,8 +310,19 @@ public class InternetOrder implements Order {
         }
 
 
-        return Integer.hashCode(size) ^ customer.hashCode() ^ head.hashCode() ^ tail.hashCode() ^ hash;
+        return Integer.hashCode(size) ^ customer.hashCode() ^ head.hashCode() ^ tail.hashCode() ^ hash; */
+
+            int hash = 0;
+            ListNode current = head;
+            while (current!=null) {
+                hash ^= current.value.hashCode();
+                current=current.next;
+            }
+            return Integer.hashCode(size) ^ head.hashCode() ^ hash;
+        }
+
     }
+
 
     private class ListNode {
         ListNode next;
@@ -293,4 +333,3 @@ public class InternetOrder implements Order {
         }
 
     }
-}
