@@ -310,7 +310,7 @@ public class InternetOrder implements Order {
         }
 
 
-        return Integer.hashCode(size) ^ customer.hashCode() ^ head.hashCode() ^ tail.hashCode() ^ hash; */
+        return Integer.hashCode(size) ^ customer.hanshCode() ^ head.hashCode() ^ tail.hashCode() ^ hash; */
 
             int hash = 0;
             ListNode current = head;
