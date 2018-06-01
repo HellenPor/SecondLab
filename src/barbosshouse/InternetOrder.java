@@ -32,7 +32,7 @@ public class InternetOrder implements Order {
 
     private void remove(ListNode node, ListNode prev) {
         if (prev != null) {
-            prev.next=node.next;
+            prev.next = node.next;
 
             if (node.next == null) {
                 tail = prev;
@@ -247,22 +247,21 @@ public class InternetOrder implements Order {
         }
         return sb.toString();*/
 
-        StringBuilder sb =new StringBuilder("InternetOrder:\n");
+        StringBuilder sb = new StringBuilder("InternetOrder:\n");
         if (customer != null) {
             sb.append(getCustomer().toString()).append("\n");
         }
 
-        if (itemsQuantity()!=0) {sb.append(itemsQuantity()).append("\n");
+        if (itemsQuantity() != 0) {
+            sb.append(itemsQuantity()).append("\n");
             ListNode current = head;
-            while (current!=null){
+            while (current != null) {
                 sb.append(current.value.toString()).append("\n");
-                current=current.next;
+                current = current.next;
             }
         }
         return sb.toString();
     }
-
-
 
 
     //todo equals toString hashCode не создавай массив, а гуляй по своим нодам
@@ -287,14 +286,14 @@ public class InternetOrder implements Order {
 
         return true;*/
         if (this == obj) return true;
-        if(obj == null || this.getClass() == obj.getClass()) return false;
+        if (obj == null || this.getClass() == obj.getClass()) return false;
         InternetOrder o = (InternetOrder) obj;
         if (!o.customer.equals(customer)) return false;
         ListNode current = head;
-        while(current!=null) {
+        while (current != null) {
             if (this.itemsQuantity(current.value) != o.itemsQuantity(current.value))
                 return false;
-            current=current.next;
+            current = current.next;
         }
         return (size == o.size);
     }
@@ -312,15 +311,13 @@ public class InternetOrder implements Order {
 
         return Integer.hashCode(size) ^ customer.hanshCode() ^ head.hashCode() ^ tail.hashCode() ^ hash; */
 
-            int hash = 0;
-            ListNode current = head;
-            while (current!=null) {
-                hash ^= current.value.hashCode();
-                current=current.next;
-            }
-            return Integer.hashCode(size) ^ head.hashCode() ^ hash;
+        int hash = 0;
+        ListNode current = head;
+        while (current != null) {
+            hash ^= current.value.hashCode();
+            current = current.next;
         }
-
+        return Integer.hashCode(size) ^ head.hashCode() ^ hash;
     }
 
 
@@ -333,3 +330,4 @@ public class InternetOrder implements Order {
         }
 
     }
+}
